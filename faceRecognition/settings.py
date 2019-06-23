@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'ux1%-1xb+ia6__-ols(wjxy67%d9w7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['facerecognitionuni2019.herokuapp.com','127.0.0.1']
 
 
 # Application definition
