@@ -20,10 +20,11 @@ def index(request):
 @csrf_exempt
 def prueba(request):
     if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
         return JsonResponse({'method': 'post'})
     return JsonResponse({'method': 'get'})
 
-
+@csrf_exempt
 def faceRecognition(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -33,8 +34,8 @@ def faceRecognition(request):
         #fs = FileSystemStorage()
         #filename = fs.save(date_time+"_"+myfile.name, myfile)
         #uploaded_file_url = fs.url(filename)
-        upurl=myfile.name
-        path= Path().absolute()
+        #upurl=myfile.name
+        #path= Path().absolute()
         #uploaded_file_url= os.path.join(Path().absolute(),uploaded_file_url[1:])
         #person = proccessRecognition(uploaded_file_url)
 
