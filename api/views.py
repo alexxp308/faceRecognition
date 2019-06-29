@@ -19,7 +19,7 @@ def index(request):
 
 @csrf_exempt
 def prueba(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES['myfile']:
         return JsonResponse({'method': 'post'})
     return JsonResponse({'method': 'get'})
 

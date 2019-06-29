@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'W_1_,Se$Y#JKZ:4JN9IDcBm4#HF<w$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = ['desolate-eyrie-24315.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['desolate-eyrie-24315.herokuapp.com','localhost']
 
 
 # Application definition
