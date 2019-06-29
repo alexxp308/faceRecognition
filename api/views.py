@@ -16,7 +16,7 @@ from api.models import PersonRecognized
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-@csrf_exempt
+#@csrf_exempt
 def faceRecognition(request):
     myFileName = ""
     if request.method == 'POST' and request.FILES['myfile']:
