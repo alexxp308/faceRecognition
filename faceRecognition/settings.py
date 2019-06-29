@@ -23,13 +23,13 @@ MEDIA_URL = '/opencv-face-recognition/images/'
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ux1%-1xb+ia6__-ols(wjxy67%d9w71s7$pj44t(ys)-2g6=ju'
-#SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'ux1%-1xb+ia6__-ols(wjxy67%d9w71s7$pj44t(ys)-2g6=ju')
+#SECRET_KEY = 'ux1%-1xb+ia6__-ols(wjxy67%d9w71s7$pj44t(ys)-2g6=ju'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'ux1%-1xb+ia6__-ols(wjxy67%d9w71s7$pj44t(ys)-2g6=ju')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = []#['desolate-eyrie-24315.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['desolate-eyrie-24315.herokuapp.com','127.0.0.1']
 
 
 # Application definition
