@@ -26,8 +26,8 @@ def faceRecognition(request):
 
         fs = FileSystemStorage()
         filename = fs.save(date_time+"_"+myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        upurl=uploaded_file_url
+        #uploaded_file_url = fs.url(filename)
+        upurl=filename
         path= Path().absolute()
         #uploaded_file_url= os.path.join(Path().absolute(),uploaded_file_url[1:])
         #person = proccessRecognition(uploaded_file_url)
