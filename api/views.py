@@ -9,10 +9,12 @@ import numpy as np
 import imutils
 import pickle
 import cv2
+import logging
 from datetime import datetime
 
 from api.models import PersonRecognized
 
+logger = logging.getLogger('testlogger')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -30,17 +32,16 @@ def faceRecognition(request):
         myfile = request.FILES['myfile']
         #now = datetime.now()
         #date_time = now.strftime("%Y_%m_%d_%H_%M_%S")
-
-        #fs = FileSystemStorage()
-        #filename = fs.save(date_time+"_"+myfile.name, myfile)
-        #uploaded_file_url = fs.url(filename)
-        #upurl=myfile.name
-        #path= Path().absolute()
-        #uploaded_file_url= os.path.join(Path().absolute(),uploaded_file_url[1:])
-        #person = proccessRecognition(uploaded_file_url)
-
-    return JsonResponse({'hola': 'hola'})
-    #return JsonResponse({'name': person.name, 'percent': person.percent})
+        logger.info('llegaste!!!!')
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        uploaded_file_url = os.path.join(Path().absolute(),uploaded_file_url[1:])
+        person = proccessRecognition(uploaded_file_url)
+        if os.path.exists(uploaded_file_url):
+            os.remove(uploaded_file_url)
+    #return JsonResponse({'hola': 'hola'})
+    return JsonResponse({'name': person.name, 'percent': person.percent})
 
 def proccessRecognition(urlImage):
     pathOpenCV = os.path.join(Path().absolute(),"opencv-face-recognition")
