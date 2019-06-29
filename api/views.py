@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from pathlib import Path
 import os
@@ -16,9 +17,8 @@ from api.models import PersonRecognized
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-#@csrf_exempt
+@method_decorator(csrf_exempt)
 def faceRecognition(request):
-    myFileName = ""
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         #now = datetime.now()
@@ -32,7 +32,7 @@ def faceRecognition(request):
         #uploaded_file_url= os.path.join(Path().absolute(),uploaded_file_url[1:])
         #person = proccessRecognition(uploaded_file_url)
 
-    return JsonResponse({'upurl': upurl, 'path': path})
+    return JsonResponse({'hola': 'hola'})
     #return JsonResponse({'name': person.name, 'percent': person.percent})
 
 def proccessRecognition(urlImage):
