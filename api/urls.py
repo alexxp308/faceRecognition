@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('faceRecognition/', views.faceRecognition, name='faceRecognition'),
+    path('prueba/', views.prueba, name='prueba'),
 ]
 
 if settings.DEBUG:

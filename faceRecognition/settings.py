@@ -23,8 +23,8 @@ MEDIA_URL = '/opencv-face-recognition/images/'
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'ux1%-1xb+ia6__-ols(wjxy67%d9w71s7$pj44t(ys)-2g6=ju'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'ux1%-1xb+ia6__-ols(wjxy67%d9w71s7$pj44t(ys)-2g6=ju')
+#SECRET_KEY = 'W_1_,Se$Y#JKZ:4JN9IDcBm4#HF<w$NfBCf/i{iF2ImnUsxK{,'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'W_1_,Se$Y#JKZ:4JN9IDcBm4#HF<w$NfBCf/i{iF2ImnUsxK{,')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
