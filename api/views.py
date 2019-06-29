@@ -27,9 +27,13 @@ def faceRecognition(request):
         fs = FileSystemStorage()
         filename = fs.save(date_time+"_"+myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-        uploaded_file_url= os.path.join(Path().absolute(),uploaded_file_url[1:])
-        person = proccessRecognition(uploaded_file_url)
-    return JsonResponse({'name': person.name, 'percent': person.percent})
+        upurl=uploaded_file_url
+        path= Path().absolute()
+        #uploaded_file_url= os.path.join(Path().absolute(),uploaded_file_url[1:])
+        #person = proccessRecognition(uploaded_file_url)
+
+    return  JsonResponse({'upurl': upurl, 'path': path})
+    #return JsonResponse({'name': person.name, 'percent': person.percent})
 
 def proccessRecognition(urlImage):
     pathOpenCV = os.path.join(Path().absolute(),"opencv-face-recognition")
