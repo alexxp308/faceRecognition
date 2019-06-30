@@ -25,8 +25,9 @@ def prueba(request):
         myfile = request.FILES['myfile']
         logger.info('llegaste1!!!!')
         fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
         logger.info('llegaste2!!!!')
-        return JsonResponse({'method': 'post'})
+        return JsonResponse({'name': myfile.name})
     return JsonResponse({'method': 'get'})
 
 @csrf_exempt
