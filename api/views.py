@@ -23,6 +23,7 @@ def index(request):
 def prueba(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
+        logger.info('llegaste!!!!')
         return JsonResponse({'method': 'post'})
     return JsonResponse({'method': 'get'})
 
