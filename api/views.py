@@ -25,7 +25,7 @@ def index(request):
 def recieveData(request):
     if request.method == 'POST':
         try:
-            body_unicode = request.body.decode('utf-8')
+            body_unicode = request.body
             body = json.loads(body_unicode)
             logger.info(body)
         except Exception as e:
