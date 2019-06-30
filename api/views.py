@@ -32,6 +32,7 @@ def prueba(request):
             uploaded_file_url = os.path.join(Path().absolute(), uploaded_file_url[1:])
             person = proccessRecognition(uploaded_file_url)
             logger.info('llegaste2!!!!')
+            return JsonResponse({'name': person.name, 'percent': person.percent})
         except Exception as e:
             s = str(e)
             logger.info(">>ERROR: "+s)
