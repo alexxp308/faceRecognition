@@ -12,12 +12,28 @@ import cv2
 import logging
 from datetime import datetime
 
+from rest_framework.utils import json
+
 from api.models import PersonRecognized
 
 logger = logging.getLogger('testlogger')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
+
+@csrf_exempt
+def recieveData(request):
+    if request.method == 'POST':
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            logger.info(body)
+        except Exception as e:
+            s = str(e)
+            logger.info(">>ERROR: " + s)
+        #content = body['content']
+        return JsonResponse({'ok': 'ok'})
+    return JsonResponse({'error': 'error'})
 
 @csrf_exempt
 def prueba(request):
