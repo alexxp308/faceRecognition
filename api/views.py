@@ -26,8 +26,10 @@ def prueba(request):
         logger.info('llegaste1!!!!')
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        logger.info('llegaste2!!!!')
-        return JsonResponse({'name': myfile.name})
+        uploaded_file_url = fs.url(filename)
+        logger.info('>>path:'+uploaded_file_url)
+        uploaded_file_url = os.path.join(Path().absolute(), uploaded_file_url[1:])
+        return JsonResponse({'name': uploaded_file_url})
     return JsonResponse({'method': 'get'})
 
 @csrf_exempt
