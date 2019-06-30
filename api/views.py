@@ -28,6 +28,7 @@ def recieveData(request):
             body_unicode = request.body
             body = json.loads(body_unicode)
             logger.info(body)
+            logger.info(type(body))
         except Exception as e:
             s = str(e)
             logger.info(">>ERROR: " + s)
