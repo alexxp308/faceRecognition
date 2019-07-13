@@ -2,7 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dc11ae9-a2f8-4b70-bb45-ab33f3dc32fe" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/faceRecognition/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/faceRecognition/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/adrian/00000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/adrian/00001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/adrian/00002.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/adrian/00003.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/adrian/00004.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/adrian/00005.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00006.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00008.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/alex/00010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/trisha/00000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/trisha/00001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/trisha/00002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/trisha/00003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/trisha/00004.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/dataset/trisha/00005.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/output/embeddings.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/opencv-face-recognition/output/embeddings.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/output/le.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/opencv-face-recognition/output/le.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opencv-face-recognition/output/recognizer.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/opencv-face-recognition/output/recognizer.pickle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +70,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/faceRecognition/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+            <state relative-caret-position="612">
+              <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
               <folding>
                 <element signature="e#316#338#0" expanded="true" />
               </folding>
@@ -54,8 +82,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="21" />
+            <state relative-caret-position="153">
+              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -66,8 +94,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+            <state relative-caret-position="247">
+              <caret line="88" column="31" lean-forward="true" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -83,6 +111,7 @@
       <find>cv</find>
       <find>myFileName</find>
       <find>faceRecognition.urls</find>
+      <find>h</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -92,9 +121,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/faceRecognition/urls.py" />
-        <option value="$PROJECT_DIR$/faceRecognition/settings.py" />
         <option value="$PROJECT_DIR$/api/urls.py" />
         <option value="$PROJECT_DIR$/api/views.py" />
+        <option value="$PROJECT_DIR$/faceRecognition/settings.py" />
       </list>
     </option>
   </component>
@@ -107,9 +136,8 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="592" />
-    <option name="y" value="116" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
@@ -118,6 +146,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -125,16 +154,10 @@
               <item name="faceRecognition" type="b2602c69:ProjectViewProjectNode" />
               <item name="faceRecognition" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="faceRecognition" type="b2602c69:ProjectViewProjectNode" />
-              <item name="faceRecognition" type="462c0819:PsiDirectoryNode" />
-              <item name="opencv-face-recognition" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -212,8 +235,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32838285" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32838285" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.47029704" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24205749" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.169967" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.32980332" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -236,6 +259,80 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/faceRecognition/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="1" column="36" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/faceRecognition/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="e#316#338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="80" column="41" lean-forward="true" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/faceRecognition/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="1" column="36" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/faceRecognition/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+          <folding>
+            <element signature="e#316#338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1785">
+          <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/faceRecognition/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -354,6 +451,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/faceRecognition/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+          <folding>
+            <element signature="e#316#338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/faceRecognition/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -361,20 +468,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/faceRecognition/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
-          <folding>
-            <element signature="e#316#338#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="21" />
+        <state relative-caret-position="153">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -383,8 +480,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+        <state relative-caret-position="247">
+          <caret line="88" column="31" lean-forward="true" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
