@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'W_1_,Se$Y#JKZ:4JN9IDcBm4#HF<w$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = ['desolate-eyrie-24315.herokuapp.com','localhost','192.168.1.38','52.67.0.104']
+ALLOWED_HOSTS = ['localhost','192.168.1.48','52.67.0.104']
 
 
 # Application definition
@@ -41,7 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_expiring_authtoken'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,8 +91,12 @@ WSGI_APPLICATION = 'faceRecognition.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'NAME': 'faceRecognition',
+        'USER': 'djangoUser',
+        'PASSWORD': 'django',
     }
 }
 
@@ -167,3 +182,6 @@ LOGGING = {
         }
     }
 }
+
+import datetime
+EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(seconds=30)

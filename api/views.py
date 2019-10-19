@@ -1,8 +1,19 @@
+from django.contrib.auth import authenticate
+from django.core import serializers
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
-from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.status import (
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND,
+    HTTP_200_OK,
+)
 from pathlib import Path
 import os
 import numpy as np
@@ -12,11 +23,12 @@ import cv2
 import logging
 import io
 from PIL import Image
-from datetime import datetime
-
 from rest_framework.utils import json
+from rest_framework_expiring_authtoken.models import ExpiringToken
+from rest_framework.authtoken.serializers import AuthTokenSerializer
 
 from api.models import PersonRecognized
+from faceRecognition.util.utilMethod import GenericResult
 
 logger = logging.getLogger('testlogger')
 pathImage = os.path.join(Path().absolute(), "opencv-face-recognition/images/out.jpg")
@@ -154,3 +166,62 @@ def bytesToImage(request):
         s = str(e)
         logger.info(">>ERROR: " + s)
     return result
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def login(request):
+    response = None
+    try:
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        username = body['userName']
+        password = body['password']
+        if username is None or password is None:
+            response = JsonResponse((GenericResult(False, HTTP_400_BAD_REQUEST, "field none", {})).__dict__)
+            return response
+
+        #serializer = AuthTokenSerializer(data={'Username': username, 'Password': password})
+        #logger.info(">>valid: " + str(serializer.is_valid()))
+        user = authenticate(username=username, password=password)
+        if not user:
+            response = JsonResponse((GenericResult(False, HTTP_404_NOT_FOUND, "no agent", {})).__dict__)
+            return response
+
+        token = ExpiringToken.objects.create(user=user)
+        response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'token': token.key})).__dict__)
+        return response
+    except Exception as e:
+        s = str(e)
+        logger.info(">>ERROR: " + s)
+        response = JsonResponse((GenericResult(False, HTTP_400_BAD_REQUEST, "error: "+s, {})).__dict__)
+        return response
+
+@csrf_exempt
+@api_view(["GET"])
+def logout(request):
+    token, _ = ExpiringToken.objects.get_or_create(user=request.user)
+    token.delete()
+    logger.info(">>logout: " + request.user.username)
+    response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {})).__dict__)
+    return response
+
+@csrf_exempt
+@api_view(["GET"])
+def isTokenExpire(request):
+    token, _ = ExpiringToken.objects.get_or_create(user=request.user)
+    logger.info(">>tokenExpire: " + str(token.expired()))
+    if token.expired():
+        token.delete()
+    response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'tokenExpired': token.expired()})).__dict__)
+    return response
+
+@csrf_exempt
+@api_view(["GET"])
+def refreshToken(request):
+    token, _ = ExpiringToken.objects.get_or_create(user=request.user)
+    token.delete()
+    token = ExpiringToken.objects.create(user=request.user)
+    response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'newToken': token.key})).__dict__)
+    logger.info(">>newToken: " + token.key)
+    return response
