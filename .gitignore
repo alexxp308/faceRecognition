@@ -115,6 +115,3 @@ venv.bak/
 *.whl
 
 .idea/
-
-**/family/migrations/
-**/users/migrations/
