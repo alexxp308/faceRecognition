@@ -43,8 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_expiring_authtoken'
+    'rest_framework_expiring_authtoken',
+
+    'users.apps.UsersConfig',
+    "fcm_django",
+    "family"
 ]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAAXus0z6g:APA91bFBojZV2bqq4d8x17ZC3NVF2Ovbh595VxFfrM91kqHYgWxk4dC2vPckk_TikPSop12SzXirLBa-5AGEzdOFEVai0Y0Il5DHciuSAxlfR5G70p32MxEoGjVtVbDmrKASLLdwyWNk"
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -119,6 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -145,6 +155,10 @@ DATABASES['default'].update(db_from_env)
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'opencv-face-recognition/dataset')
+]
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/

@@ -108,3 +108,13 @@ venv.bak/
 
 #Database
 *.sqlite3
+
+**/opencv-face-recognition/output/
+**/opencv-face-recognition/dataset/
+
+*.whl
+
+**/.idea/
+
+**/family/migrations/
+**/users/migrations/
