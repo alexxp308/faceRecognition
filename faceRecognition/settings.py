@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'W_1_,Se$Y#JKZ:4JN9IDcBm4#HF<w$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = ['localhost','192.168.1.48','52.67.0.104']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -164,6 +164,21 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+from pathlib import Path
+logDirectory = os.path.join(Path().absolute(), "../logs")
+
+if not os.path.exists(logDirectory):
+    os.makedirs(logDirectory)
+
+#from datetime import date
+#today = date.today()
+#dateFormat = today.strftime("%Y_%m_%d")
+
+#logFile = logDirectory+"/django-"+dateFormat+".log"
+
+#if not os.path.exists(logFile):
+#    with open(logFile, 'w'): pass
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -187,11 +202,19 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-        }
+        },
+        'file': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            #  choose file location of your liking
+            'filename': logDirectory+"/django.log",
+            'formatter': 'verbose',
+            'when': 'midnight',
+            'interval': 1,
+        },
     },
     'loggers': {
         'testlogger': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
             'level': 'INFO',
         }
     }

@@ -35,6 +35,7 @@ logger = logging.getLogger('testlogger')
 pathImage = os.path.join(Path().absolute(), "opencv-face-recognition/images/out.jpg")
 
 def index(request):
+    logger.info("index in loggg!!!!!")
     return HttpResponse("Hello, world. You're at the polls index.")
 
 @csrf_exempt
