@@ -6,7 +6,6 @@ from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
 from fcm_django.fcm import fcm_send_topic_message
-from pusher import pusher
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import AllowAny
@@ -227,22 +226,6 @@ def refreshToken(request):
     response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'newToken': token.key})).__dict__)
     logger.info(">>newToken: " + token.key)
     return response
-
-@csrf_exempt
-@api_view(["GET"])
-@permission_classes((AllowAny,))
-def sendNotification(request):
-    channels_client = pusher.Pusher(
-        app_id='887946',
-        key='ff5b095b43b53e83bca4',
-        secret='e851678e66fdc2353ab6',
-        cluster='us2',
-        ssl=True
-    )
-
-    channels_client.trigger('my-channel', 'my-event', {'message': 'hello world'})
-
-    return HttpResponse("<h1>Ok</h1>")
 
 @csrf_exempt
 @api_view(["GET"])

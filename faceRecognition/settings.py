@@ -199,3 +199,6 @@ LOGGING = {
 
 import datetime
 EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(seconds=30)
+
+from django.db.backends.mysql.base import DatabaseWrapper
+DatabaseWrapper.data_types['DateTimeField'] = 'datetime'

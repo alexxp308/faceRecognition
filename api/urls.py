@@ -13,7 +13,7 @@ urlpatterns = [
     path('isTokenExpire/', views.isTokenExpire, name='isTokenExpire'),
     path('refreshToken/', views.refreshToken, name='refreshToken'),
     path('recieveData/', views.recieveData, name='recieveData'),
-    path('sendNotification/', views.sendNotification, name='sendNotification'),
+    #path('sendNotification/', views.sendNotification, name='sendNotification'),
     path('sendNot/', views.sendNot, name='sendNot')
 ]
 
