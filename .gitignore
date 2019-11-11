@@ -114,7 +114,7 @@ venv.bak/
 
 *.whl
 
-**/.idea/
+.idea/
 
 **/family/migrations/
 **/users/migrations/
