@@ -9,7 +9,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ['username', 'email', 'cell_phone_number']
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('some_extra_data',)}),
+        (None, {'fields': ('cell_phone_number',)}),
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
