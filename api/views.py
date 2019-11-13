@@ -156,7 +156,6 @@ def proccessRecognition(urlImage):
     return person
 
 def bytesToImage(request, miPath):
-    result = "";
     try:
         body_unicode = request.body
         photo_infile = io.BytesIO(body_unicode)
@@ -241,6 +240,8 @@ def sendNot(request):
 @permission_classes((AllowAny,))
 def receiveImage(request):
     pathForeingImage = os.path.join(Path().absolute(), "opencv-face-recognition/dataset/image.jpg")
-    bytesToImage(request, pathForeingImage)
-
-    return HttpResponse("<h1>Ok</h1>")
+    response = bytesToImage(request, pathForeingImage)
+    logger.info(">>UPLOAD IMAGEN FROM ARDUINO TO SERVER!")
+    if response is 'ERROR':
+        return HttpResponse("<h1>ERROR</h1>")
+    return HttpResponse("<h1>OK</h1>")
