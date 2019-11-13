@@ -111,6 +111,7 @@ venv.bak/
 
 **/opencv-face-recognition/output/
 **/opencv-face-recognition/dataset/
+**/opencv-face-recognition/images/
 
 *.whl
 

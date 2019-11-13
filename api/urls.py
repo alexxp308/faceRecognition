@@ -14,7 +14,8 @@ urlpatterns = [
     path('refreshToken/', views.refreshToken, name='refreshToken'),
     path('recieveData/', views.recieveData, name='recieveData'),
     #path('sendNotification/', views.sendNotification, name='sendNotification'),
-    path('sendNot/', views.sendNot, name='sendNot')
+    path('sendNot/', views.sendNot, name='sendNot'),
+    path('receiveImage/', views.receiveImage, name='receiveImage')
 ]
 
 if settings.DEBUG:

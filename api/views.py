@@ -87,7 +87,7 @@ def faceRecognition(request):
         ##filename = fs.save(myfile.name, myfile)
         #uploaded_file_url = fs.url(filename)
         #uploaded_file_url = os.path.join(Path().absolute(),uploaded_file_url[1:])
-        uploaded_file_url = bytesToImage(request)
+        uploaded_file_url = bytesToImage(request, pathImage)
         if(uploaded_file_url is 'ERROR'):
             return JsonResponse({'error':'error'})
         person = proccessRecognition(uploaded_file_url)
@@ -155,14 +155,14 @@ def proccessRecognition(urlImage):
     person.percent = proba
     return person
 
-def bytesToImage(request):
+def bytesToImage(request, miPath):
     result = "";
     try:
         body_unicode = request.body
         photo_infile = io.BytesIO(body_unicode)
         photo_image = Image.open(photo_infile)
-        photo_image.save(pathImage, "JPEG", quality=100, optimize=True, progressive=True)
-        result = pathImage
+        photo_image.save(miPath, "JPEG", quality=100, optimize=True, progressive=True)
+        result = miPath
     except Exception as e:
         result = "ERROR"
         s = str(e)
@@ -236,3 +236,11 @@ def sendNot(request):
 
     return HttpResponse("<h1>Ok</h1>")
 
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def receiveImage(request):
+    pathForeingImage = os.path.join(Path().absolute(), "opencv-face-recognition/dataset/image.jpg")
+    bytesToImage(request, pathForeingImage)
+
+    return HttpResponse("<h1>Ok</h1>")
