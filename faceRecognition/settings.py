@@ -47,7 +47,8 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     "fcm_django",
-    "family"
+    "family",
+    "record"
 ]
 
 FCM_DJANGO_SETTINGS = {
@@ -220,6 +221,8 @@ LOGGING = {
         }
     }
 }
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 import datetime
 EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(seconds=30)

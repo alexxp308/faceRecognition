@@ -30,6 +30,9 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 
 from api.models import PersonRecognized
 from faceRecognition.util.utilMethod import GenericResult
+from family.models import Family
+from record.models import Record
+from users.models import CustomUser
 
 logger = logging.getLogger('testlogger')
 pathImage = os.path.join(Path().absolute(), "opencv-face-recognition/images/out.jpg")
@@ -127,7 +130,7 @@ def proccessRecognition(urlImage):
     detections = detector.forward()
 
     proba = 0.0
-    name = ""
+    name = "Desconocido"
     for i in range(0, detections.shape[2]):
         confidence = detections[0, 0, i, 2]
 
@@ -190,11 +193,14 @@ def login(request):
             return response
 
         token = ExpiringToken.objects.create(user=user)
-        response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'token': token.key})).__dict__)
+
+        logger.info(">>LOGIN OK: " + user.username)
+
+        response = JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'token': token.key, 'user': user.id})).__dict__)
         return response
     except Exception as e:
         s = str(e)
-        logger.info(">>ERROR: " + s)
+        logger.info(">>ERROR LOGIN: " + s)
         response = JsonResponse((GenericResult(False, HTTP_400_BAD_REQUEST, "error: "+s, {})).__dict__)
         return response
 
@@ -238,10 +244,48 @@ def sendNot(request):
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def receiveImage(request):
-    pathForeingImage = os.path.join(Path().absolute(), "opencv-face-recognition/dataset/image.jpg")
+def receiveImage(request, idclient):
+    logger.info(">>receive image idcliente: " + str(idclient))
+    try:
+        lastRecordId = Record.objects.latest('idRecord').idRecord+1
+    except Record.DoesNotExist:
+        lastRecordId = 1
+    logger.info(">>future lastRecordId: " + str(lastRecordId))
+
+    directoryByClient = os.path.join(Path().absolute(), "opencv-face-recognition/dataset/records/"+str(idclient))
+
+    if not os.path.exists(directoryByClient):
+        os.makedirs(directoryByClient)
+
+    pathForeingImage = directoryByClient+"/record_"+str(lastRecordId)+".jpg"
     response = bytesToImage(request, pathForeingImage)
-    logger.info(">>UPLOAD IMAGEN FROM ARDUINO TO SERVER!")
     if response is 'ERROR':
+        logger.info(">>ERROR UPLOAD IMAGEN FROM ARDUINO")
         return HttpResponse("<h1>ERROR</h1>")
+
+    personRecognition = proccessRecognition(pathForeingImage)
+    logger.info("person: "+personRecognition.name)
+    logger.info("percent: "+str(personRecognition.percent))
+    if personRecognition.name is 'unknown':
+        myFamily= Family(familyName="Desconocido", relationship="Desconocido")
+    else:
+        try:
+            myFamily = Family.objects.get(familyName=personRecognition.name)
+        except Family.DoesNotExist:
+            myFamily = Family(familyName=personRecognition.name, relationship="Desconocido")
+
+
+    #user = User.objects.get(id=idclient)
+    user = CustomUser.objects.get(id=idclient)
+
+    arrayPath = response.split("/", 2)
+    photoPath = arrayPath[2]
+
+    myRecord = Record(familyName=personRecognition.name, relationship=myFamily.relationship,
+                      percent=str(personRecognition.percent), recordPhotoPath=photoPath, idClient=user)
+    myRecord.save()
+    logger.info(">>id record: " + str(myRecord.idRecord))
+    fcm_send_topic_message(topic_name='my-event', message_body='la persona '+myRecord.familyName+' ingreso a tu hogar a las '+myRecord.dateRecord.strftime("%Y-%m-%d %H:%M:%S"),
+                           message_title='Mensaje Arduino')
+
     return HttpResponse("<h1>OK</h1>")

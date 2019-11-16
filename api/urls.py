@@ -15,7 +15,7 @@ urlpatterns = [
     path('recieveData/', views.recieveData, name='recieveData'),
     #path('sendNotification/', views.sendNotification, name='sendNotification'),
     path('sendNot/', views.sendNot, name='sendNot'),
-    path('receiveImage/', views.receiveImage, name='receiveImage')
+    path('receiveImage/<int:idclient>', views.receiveImage, name='receiveImage')
 ]
 
 if settings.DEBUG:
