@@ -1,3 +1,6 @@
+import base64
+import sys
+
 from django.contrib.auth import authenticate
 from django.core import serializers
 from django.contrib.auth.models import User
@@ -35,7 +38,7 @@ from record.models import Record
 from users.models import CustomUser
 
 logger = logging.getLogger('testlogger')
-pathImage = os.path.join(Path().absolute(), "opencv-face-recognition/images/out.jpg")
+pathImage = os.path.join(Path().absolute(), "opencv-face-recognition/images/out_2.jpg")
 
 def index(request):
     logger.info("index in loggg!!!!!")
@@ -78,31 +81,49 @@ def prueba(request):
         return JsonResponse({'name': 'paso'})
     return JsonResponse({'method': 'get'})
 
-@csrf_exempt
-def faceRecognition(request):
-    # and request.FILES['myfile']:
-    if request.method == 'POST':
-        #myfile = request.FILES['myfile']
-        #now = datetime.now()
-        #date_time = now.strftime("%Y_%m_%d_%H_%M_%S")
-        #logger.info('llegaste!!!!')
-        #fs = FileSystemStorage()
-        ##filename = fs.save(myfile.name, myfile)
-        #uploaded_file_url = fs.url(filename)
-        #uploaded_file_url = os.path.join(Path().absolute(),uploaded_file_url[1:])
-        uploaded_file_url = bytesToImage(request, pathImage)
-        if(uploaded_file_url is 'ERROR'):
-            return JsonResponse({'error':'error'})
-        person = proccessRecognition(uploaded_file_url)
-        #if os.path.exists(uploaded_file_url):
-            #os.remove(uploaded_file_url)
-        logger.info("nombre: "+person.name)
-        logger.info("percent: " + str(person.percent))
-    #return JsonResponse({'hola': 'hola'})
-    return JsonResponse({'name': person.name, 'percent': person.percent})
 
-def proccessRecognition(urlImage):
-    pathOpenCV = os.path.join(Path().absolute(),"opencv-face-recognition")
+# myfile = request.FILES['myfile']
+# now = datetime.now()
+# date_time = now.strftime("%Y_%m_%d_%H_%M_%S")
+# logger.info('llegaste!!!!')
+# fs = FileSystemStorage()
+##filename = fs.save(myfile.name, myfile)
+# uploaded_file_url = fs.url(filename)
+# uploaded_file_url = os.path.join(Path().absolute(),uploaded_file_url[1:])
+#return JsonResponse({'hola': 'hola'})
+
+@csrf_exempt
+@api_view(["POST"])
+def faceRecognition(request):
+    user = request.user
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    image = body['image']
+
+    fakePath = os.path.join(Path().absolute(), "opencv-face-recognition/images/out_fake.jpg")
+    truePath = os.path.join(Path().absolute(), "opencv-face-recognition/images/out.jpg")
+
+    uploaded_file_url = base64ToImage(image, fakePath)
+
+    #uploaded_file_url = bytesToImage(request, pathImage)
+
+    if(uploaded_file_url is 'ERROR'):
+        return JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'name': '', 'percent': 0})).__dict__)
+        #return JsonResponse({'error':'error'})
+
+    img_rt_90 = rotate_img(uploaded_file_url, 90)
+    img_rt_90.save(truePath)
+    os.remove(fakePath)
+
+    person = proccessRecognition(truePath, user.id)
+    logger.info("nombre: "+person.name)
+    logger.info("percent: " + str(person.percent))
+    return JsonResponse((GenericResult(True, HTTP_200_OK, "ok", {'name': person.name, 'percent': person.percent})).__dict__)
+
+    #return JsonResponse({'name': person.name, 'percent': person.percent})
+
+def proccessRecognition(urlImage, clientId):
+    pathOpenCV = os.path.join(Path().absolute(), "opencv-face-recognition")
     person = PersonRecognized()
     protoPath = os.path.sep.join(
         [os.path.join(pathOpenCV,'face_detection_model'), "deploy.prototxt"])
@@ -115,9 +136,9 @@ def proccessRecognition(urlImage):
         os.path.join(pathOpenCV,'openface_nn4.small2.v1.t7'))
 
     recognizer = pickle.loads(
-        open(os.path.join(pathOpenCV,'output/recognizer.pickle'), "rb").read())
+        open(os.path.join(pathOpenCV, 'output/'+('' if clientId == 0 else (str(clientId)+'/'))+'recognizer.pickle'), "rb").read())
     le = pickle.loads(
-        open(os.path.join(pathOpenCV,'output/le.pickle'), "rb").read())
+        open(os.path.join(pathOpenCV, 'output/'+('' if clientId == 0 else (str(clientId)+'/'))+'le.pickle'), "rb").read())
     image = cv2.imread(urlImage)
     image = imutils.resize(image, width=600)
     (h, w) = image.shape[:2]
@@ -170,6 +191,23 @@ def bytesToImage(request, miPath):
         s = str(e)
         logger.info(">>ERROR: " + s)
     return result
+
+def base64ToImage(image, miPath):
+    try:
+        image += "=" * ((4 - len(image) % 4) % 4)
+        imgdata = base64.b64decode(image)
+        with open(miPath, 'wb') as f:
+            f.write(imgdata)
+        result = miPath
+    except Exception as e:
+        result = "ERROR"
+        _, _, exc_tb = sys.exc_info()
+        s = str(e)
+        logger.info(">>ERROR base64ToImage: " + s)
+        logger.info(">>LINE ERROR: " + str(exc_tb.tb_lineno))
+    return result
+
+
 
 @csrf_exempt
 @api_view(["POST"])
@@ -257,13 +295,20 @@ def receiveImage(request, idclient):
     if not os.path.exists(directoryByClient):
         os.makedirs(directoryByClient)
 
-    pathForeingImage = directoryByClient+"/record_"+str(lastRecordId)+".jpg"
-    response = bytesToImage(request, pathForeingImage)
+    feikPath = directoryByClient+"/record_"+str(lastRecordId)+"_feik.jpg"
+    truePath = directoryByClient+"/record_"+str(lastRecordId)+".jpg"
+
+    #pathForeingImage = directoryByClient+"/record_"+str(lastRecordId)+".jpg"
+    response = bytesToImage(request, feikPath)
     if response is 'ERROR':
         logger.info(">>ERROR UPLOAD IMAGEN FROM ARDUINO")
         return HttpResponse("<h1>ERROR</h1>")
 
-    personRecognition = proccessRecognition(pathForeingImage)
+    img_rt_90 = rotate_img(feikPath, -90)
+    img_rt_90.save(truePath)
+    os.remove(feikPath)
+
+    personRecognition = proccessRecognition(truePath, idclient)
     logger.info("person: "+personRecognition.name)
     logger.info("percent: "+str(personRecognition.percent))
     if personRecognition.name is 'unknown':
@@ -278,7 +323,7 @@ def receiveImage(request, idclient):
     #user = User.objects.get(id=idclient)
     user = CustomUser.objects.get(id=idclient)
 
-    arrayPath = response.split("/", 2)
+    arrayPath = truePath.split("/", 2)
     photoPath = arrayPath[2]
 
     myRecord = Record(familyName=personRecognition.name, relationship=myFamily.relationship,
@@ -289,3 +334,7 @@ def receiveImage(request, idclient):
                            message_title='Mensaje Arduino')
 
     return HttpResponse("<h1>OK</h1>")
+
+def rotate_img(img_path, rt_degr):
+    img = Image.open(img_path)
+    return img.rotate(rt_degr, expand=1)
