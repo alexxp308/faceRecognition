@@ -94,6 +94,7 @@ def createFacilDetection(idClient, familyName, images, idFamily):
         if result != 0:
             result = extract_embeddings(idClient, familyName, result)
             logger.info(">>extract_embeddings OK")
+            logger.info(">>>>>>>>>>> value result: " + ("Si!!!" if result else "No!!!"))
             if result:
                 result = train_Model(idClient)
                 if result:
