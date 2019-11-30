@@ -179,7 +179,10 @@ def extract_embeddings(idClient, familyName, existsEmbedding):
             # extract the person name from the image path
             logger.info("[INFO] processing image {}/{}".format(i + 1,
                                                          len(imagePaths)))
-            name = imagePath.split(os.path.sep)[-2]
+            name = (familyName if existsEmbedding == 2 else imagePath.split(os.path.sep)[-2])
+            #name = familyName
+            logger.info(">>>>>>>>NAME:" + name)
+
 
             image = cv2.imread(imagePath)
             image = imutils.resize(image, width=600)

@@ -1,5 +1,6 @@
 import base64
 import sys
+import math
 
 from django.contrib.auth import authenticate
 from django.core import serializers
@@ -176,7 +177,7 @@ def proccessRecognition(urlImage, clientId):
             proba = preds[j] * 100
             name = le.classes_[j]
     person.name = name
-    person.percent = proba
+    person.percent = math.trunc(proba)
     return person
 
 def bytesToImage(request, miPath):
