@@ -248,50 +248,50 @@ def extract_embeddings(idClient, familyName, existsEmbedding):
 
 
 def train_Model(idClient):
-    #try:
-    dirOutput = os.path.join(Path().absolute(), "opencv-face-recognition/output/" + str(idClient))
+    try:
+        dirOutput = os.path.join(Path().absolute(), "opencv-face-recognition/output/" + str(idClient))
 
-    embeddingPath = dirOutput + "/embeddings.pickle"
+        embeddingPath = dirOutput + "/embeddings.pickle"
 
-    # load the face embeddings
-    print("[INFO] loading face embeddings...")
-    data = pickle.loads(open(embeddingPath, "rb").read())
+        # load the face embeddings
+        print("[INFO] loading face embeddings...")
+        data = pickle.loads(open(embeddingPath, "rb").read())
 
-    # encode the labels
-    print("[INFO] encoding labels...")
-    le = LabelEncoder()
-    labels = le.fit_transform(data["names"])
+        # encode the labels
+        print("[INFO] encoding labels...")
+        le = LabelEncoder()
+        labels = le.fit_transform(data["names"])
 
-    # train the model used to accept the 128-d embeddings of the face and
-    # then produce the actual face recognition
-    print("[INFO] training model...")
-    recognizer = SVC(C=1.0, kernel="linear", probability=True)
-    recognizer.fit(data["embeddings"], labels)
+        # train the model used to accept the 128-d embeddings of the face and
+        # then produce the actual face recognition
+        print("[INFO] training model...")
+        recognizer = SVC(C=1.0, kernel="linear", probability=True)
+        recognizer.fit(data["embeddings"], labels)
 
-    # write the actual face recognition model to disk
-    recognizerPath = dirOutput + "/recognizer.pickle"
+        # write the actual face recognition model to disk
+        recognizerPath = dirOutput + "/recognizer.pickle"
 
-    if not os.path.exists(recognizerPath):
-        with open(recognizerPath, 'w'): pass
+        if not os.path.exists(recognizerPath):
+            with open(recognizerPath, 'w'): pass
 
-    f = open(recognizerPath, "wb")
-    f.write(pickle.dumps(recognizer))
-    f.close()
+        f = open(recognizerPath, "wb")
+        f.write(pickle.dumps(recognizer))
+        f.close()
 
-    # write the label encoder to disk
-    lePath = dirOutput + "/le.pickle"
+        # write the label encoder to disk
+        lePath = dirOutput + "/le.pickle"
 
-    if not os.path.exists(lePath):
-        with open(lePath, 'w'): pass
+        if not os.path.exists(lePath):
+            with open(lePath, 'w'): pass
 
-    f = open(lePath, "wb")
-    f.write(pickle.dumps(le))
-    f.close()
-    result = True
-    #except Exception as e:
-    #   s = str(e)
-    #  logger.info(">>ERROR extract_embeddings: " + s)
-    # result = False
+        f = open(lePath, "wb")
+        f.write(pickle.dumps(le))
+        f.close()
+        result = True
+    except Exception as e:
+        s = str(e)
+        logger.info(">>ERROR extract_embeddings: " + s)
+        result = False
 
     return result
 
