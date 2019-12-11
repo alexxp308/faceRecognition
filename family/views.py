@@ -290,7 +290,7 @@ def train_Model(idClient):
         result = True
     except Exception as e:
         s = str(e)
-        logger.info(">>ERROR extract_embeddings: " + s)
+        logger.info(">>ERROR train_model: " + s)
         result = False
 
     return result
