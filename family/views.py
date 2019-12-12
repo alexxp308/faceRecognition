@@ -1,6 +1,7 @@
 import base64
 import os
 import shutil
+import sys
 import threading
 
 import imutils
@@ -254,17 +255,17 @@ def train_Model(idClient):
         embeddingPath = dirOutput + "/embeddings.pickle"
 
         # load the face embeddings
-        print("[INFO] loading face embeddings...")
+        logger.info("[INFO] loading face embeddings...")
         data = pickle.loads(open(embeddingPath, "rb").read())
 
         # encode the labels
-        print("[INFO] encoding labels...")
+        logger.info("[INFO] encoding labels...")
         le = LabelEncoder()
         labels = le.fit_transform(data["names"])
 
         # train the model used to accept the 128-d embeddings of the face and
         # then produce the actual face recognition
-        print("[INFO] training model...")
+        logger.info("[INFO] training model...")
         recognizer = SVC(C=1.0, kernel="linear", probability=True)
         recognizer.fit(data["embeddings"], labels)
 
@@ -289,8 +290,10 @@ def train_Model(idClient):
         f.close()
         result = True
     except Exception as e:
+        _, _, exc_tb = sys.exc_info()
         s = str(e)
-        logger.info(">>ERROR train_model: " + s)
+        logger.info(">>ERROR trainModel: " + s)
+        logger.info(">>LINE ERROR: " + str(exc_tb.tb_lineno))
         result = False
 
     return result
